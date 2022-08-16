@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit a Recipe</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        {% for message in get_flashed_messages() %}
+            <p class="text-danger">{{message}}</p>
+        {% endfor %}
+
+
+        <div class="d-flex justify-content-between mb-5 mt-2">
+            <h3>Edit Your Recipe!</h3>
+            <div class="ml-2">
+                <a href="/welcome" class="btn btn-secondary">back to recipes</a>
+                <a href="/users/logout" class="btn btn-danger">logout</a>
+            </div>
+        </div>
+
+
+        <form action="/recipes/{{recipe.id}}/update" method="post" class="form">
+            <div class="d-flex justify-content-between">
+                <!-- NAME, DESCRIPTION, INSTRUCTIONS -->
+                <div>
+                    <label for="title">Name</label>
+                    <input type="text" name="title" id="title" class="form-control" value="{{recipe.title}}">
+                    <!-- names and id don't have to match. id is for label and name is for dictionary -->
+                    <label for="description">Description</label>
+                    <textarea name="description" id="description" cols="30" rows="3" class="form-control">{{recipe.description}}</textarea>
+                    <label for="instructions">Instructions</label>
+                    <textarea name="instructions" id="instructions" cols="30" rows="5" class="form-control">{{recipe.instructions}}</textarea>
+                </div>
+    
+                <div>
+                <label for="date">Date Cooked/Made:</label>
+                <input type="date" name="date" id="date" class="form-control" value="{{recipe.date}}">
+                    <div>
+                        Under 30 minutes?:
+                            <label for="true">True</label>
+                            <input type="radio" name="under_30" id="true" value="1" {% if recipe.under_30 == 1 %}checked{% endif %}>
+                            <label for="false">False</label>
+                            <input type="radio" name="under_30" id="false", value="0" {% if recipe.under_30 == 0 %}checked{% endif %}>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</body>
+</html>

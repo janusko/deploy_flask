@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        {% for message in get_flashed_messages() %}
+            <p>{{message}}</p>
+        {% endfor %}
+        <div class="d-flex justify-content-between mt-2">
+            <h1>Welcome, {{user.first_name}}</h1>
+            <div>
+                <a href="/welcome" class="btn btn-primary">back to recipes</a>
+                <a href="/users/logout" class="btn btn-danger">logout</a>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between mt-5 mb-2">
+            <h2>{{ recipe.title }}</h2>
+            <h5>Posted by: {{ recipe.cook.first_name }} {{ recipe.cook.last_name}}</h5>
+        </div>
+        <div class="border border-secondary p-3">
+            <p>Description: {{ recipe.description }}</p>
+            <p>Under 30 Minutes: {% if recipe.under_30 == 1 %} Yes {% else %} No {% endif %}</p>
+            <p>Instruction: {{ recipe.instructions }}</p>
+            <p>Date: {{ recipe.date }}</p>
+        </div>
+    </div>
+</body>
+</html>
